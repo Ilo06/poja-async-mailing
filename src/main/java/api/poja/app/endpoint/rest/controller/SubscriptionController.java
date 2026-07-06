@@ -1,9 +1,9 @@
 package api.poja.app.endpoint.rest.controller;
 
-import api.poja.app.entity.Course;
-import api.poja.app.entity.User;
 import api.poja.app.endpoint.event.EventProducer;
 import api.poja.app.endpoint.event.model.CourseSubscribed;
+import api.poja.app.entity.Course;
+import api.poja.app.entity.User;
 import api.poja.app.repository.CourseRepository;
 import api.poja.app.repository.UserRepository;
 import java.util.List;
@@ -24,8 +24,7 @@ public class SubscriptionController {
   private final EventProducer<CourseSubscribed> eventProducer;
 
   @PostMapping("/users/{userId}/courses/{courseId}/subscribe")
-  public ResponseEntity<String> subscribe(
-      @PathVariable UUID userId, @PathVariable UUID courseId) {
+  public ResponseEntity<String> subscribe(@PathVariable UUID userId, @PathVariable UUID courseId) {
     User user =
         userRepository
             .findById(userId)

@@ -1,8 +1,10 @@
 package api.poja.app.endpoint.rest.controller;
 
-import api.poja.app.entity.Course;
 import api.poja.app.endpoint.rest.model.CreateCourseRequest;
+import api.poja.app.entity.Course;
 import api.poja.app.repository.CourseRepository;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
