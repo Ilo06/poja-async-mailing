@@ -26,20 +26,20 @@ import lombok.ToString;
 @ToString(exclude = "users")
 public class Course {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", updatable = false, nullable = false)
+  private UUID id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+  @Column(name = "title", nullable = false)
+  private String title;
 
-    @Column(name = "start_date")
-    private Instant startDate;
+  @Column(name = "start_date")
+  private Instant startDate;
 
-    @Column(name = "end_date")
-    private Instant endDate;
+  @Column(name = "end_date")
+  private Instant endDate;
 
-    @ManyToMany(mappedBy = "courses")
-    private Set<User> users = new HashSet<>();
+  @ManyToMany(mappedBy = "courses")
+  private Set<User> users = new HashSet<>();
 }

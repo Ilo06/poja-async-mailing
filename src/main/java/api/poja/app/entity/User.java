@@ -21,11 +21,11 @@ import lombok.ToString;
 
 @Entity
 @Table(
-        name = "app_user",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "user_name"),
-                @UniqueConstraint(columnNames = "email")
-        })
+    name = "app_user",
+    uniqueConstraints = {
+      @UniqueConstraint(columnNames = "user_name"),
+      @UniqueConstraint(columnNames = "email")
+    })
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,27 +33,27 @@ import lombok.ToString;
 @ToString(exclude = "courses")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", updatable = false, nullable = false)
+  private UUID id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+  @Column(name = "first_name", nullable = false)
+  private String firstName;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+  @Column(name = "last_name", nullable = false)
+  private String lastName;
 
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+  @Column(name = "user_name", nullable = false)
+  private String userName;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+  @Column(name = "email", nullable = false)
+  private String email;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_course",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private Set<Course> courses = new HashSet<>();
+  @ManyToMany
+  @JoinTable(
+      name = "user_course",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "course_id"))
+  private Set<Course> courses = new HashSet<>();
 }
