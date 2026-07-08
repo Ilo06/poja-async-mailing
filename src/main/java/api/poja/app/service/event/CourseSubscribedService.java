@@ -29,7 +29,7 @@ public class CourseSubscribedService implements Consumer<CourseSubscribed> {
     var pdfFile = pdfGenerator.generate(event.getUserEmail(), message);
     var bucketKey = "subscriptions/" + event.getUserId() + "-" + UUID.randomUUID() + ".pdf";
     bucketComponent.upload(pdfFile, bucketKey);
-    var presignedUrl = bucketComponent.presign(bucketKey, Duration.ofDays(7));
+    var presignedUrl = bucketComponent.presign(bucketKey, Duration.ofMinutes(30));
 
     InternetAddress recipient = new InternetAddress(event.getUserEmail());
     String htmlBody =
