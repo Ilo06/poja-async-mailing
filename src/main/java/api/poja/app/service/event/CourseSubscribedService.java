@@ -43,7 +43,7 @@ public class CourseSubscribedService implements Consumer<CourseSubscribed> {
             + "<a href=\""
             + presignedUrl
             + "\">Télécharger le PDF</a></p>"
-            + "<p><i>Ce lien est valable 7 jours.</i></p>";
+            + "<p><i>Ce lien est valable 30 minutes.</i></p>";
 
     mailer.accept(
         new Email(
