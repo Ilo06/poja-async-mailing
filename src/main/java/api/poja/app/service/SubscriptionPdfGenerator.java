@@ -31,7 +31,7 @@ public class SubscriptionPdfGenerator {
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <style>
         @page { size: A4; margin: 50px; }
 
