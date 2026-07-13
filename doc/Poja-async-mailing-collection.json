@@ -2,7 +2,7 @@
   "info": {
     "name": "Poja Async Mailing - Full Test Suite",
     "_postman_id": "a1b2c3d4-e5f6-4a5b-8c9d-poja0000001",
-    "description": "Collection to test all endpoints: users, courses, subscription (async event), hello world, and health checks.",
+    "description": "Collection to test all endpoints: users, courses, subscription (async event), images (async event), hello world, and health checks.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -18,6 +18,11 @@
     },
     {
       "key": "courseId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "imageId",
       "value": "",
       "type": "string"
     }
@@ -279,6 +284,131 @@
               "host": ["{{baseUrl}}"],
               "path": ["users", "00000000-0000-0000-0000-000000000000", "courses", "{{courseId}}", "subscribe"]
             }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Images (async event)",
+      "item": [
+        {
+          "name": "Submit Image - JPEG",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json.id) {",
+                  "    pm.collectionVariables.set('imageId', json.id);",
+                  "}",
+                  "pm.test('Response has fileName and userEmail', function () {",
+                  "    pm.expect(json).to.have.property('fileName');",
+                  "    pm.expect(json).to.have.property('userEmail');",
+                  "    pm.expect(json).to.have.property('createdAt');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "email",
+                  "value": "ilo.rakoto@example.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/images",
+              "host": ["{{baseUrl}}"],
+              "path": ["images"]
+            },
+            "description": "Select a local .jpg or .png file for the 'file' field before sending. Saves the record synchronously, then asynchronously converts the image to black and white, uploads it to S3, and emails a download link to the given address."
+          }
+        },
+        {
+          "name": "Submit Image - Unsupported Content Type",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [],
+                  "description": "Select a non-image file (e.g. .txt or .pdf) to trigger the 400 response"
+                },
+                {
+                  "key": "email",
+                  "value": "ilo.rakoto@example.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/images",
+              "host": ["{{baseUrl}}"],
+              "path": ["images"]
+            }
+          }
+        },
+        {
+          "name": "Get All Images",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Response is an array', function () {",
+                  "    pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/images",
+              "host": ["{{baseUrl}}"],
+              "path": ["images"]
+            },
+            "description": "Returns all submitted images, including the ones still being processed asynchronously."
           }
         }
       ]
