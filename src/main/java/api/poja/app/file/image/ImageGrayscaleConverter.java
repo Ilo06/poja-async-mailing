@@ -1,13 +1,11 @@
 package api.poja.app.file.image;
 
-import static java.io.File.createTempFile;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,10 +17,8 @@ public class ImageGrayscaleConverter {
       throw new IOException("Unable to read image: " + originalFilename);
     }
 
-    BufferedImage grayscale = new BufferedImage(
-            original.getWidth(),
-            original.getHeight(),
-            BufferedImage.TYPE_BYTE_GRAY);
+    BufferedImage grayscale =
+        new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 
     Graphics2D graphics = grayscale.createGraphics();
     try {
@@ -38,8 +34,6 @@ public class ImageGrayscaleConverter {
   }
 
   private String formatFor(String filename) {
-    return filename != null && filename.toLowerCase().endsWith(".png")
-            ? "png"
-            : "jpg";
+    return filename != null && filename.toLowerCase().endsWith(".png") ? "png" : "jpg";
   }
 }

@@ -28,7 +28,8 @@ public class ImageSubmittedService implements Consumer<ImageSubmitted> {
     var originalFile = bucketComponent.download(event.getOriginalBucketKey());
     var grayscaleFile = grayscaleConverter.convert(originalFile, event.getFileName());
 
-    String processedBucketKey = "images/processed/" + event.getImageId() + "-" + event.getFileName();
+    String processedBucketKey =
+        "images/processed/" + event.getImageId() + "-" + event.getFileName();
     bucketComponent.upload(grayscaleFile, processedBucketKey);
 
     URL presignedUrl = bucketComponent.presign(processedBucketKey, Duration.ofDays(7));

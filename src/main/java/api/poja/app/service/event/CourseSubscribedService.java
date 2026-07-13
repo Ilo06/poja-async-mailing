@@ -34,7 +34,7 @@ public class CourseSubscribedService implements Consumer<CourseSubscribed> {
     InternetAddress recipient = new InternetAddress(event.getUserEmail());
 
     String htmlBody =
-        """
+"""
 <!DOCTYPE html>
 <html lang="fr">
 <head>
