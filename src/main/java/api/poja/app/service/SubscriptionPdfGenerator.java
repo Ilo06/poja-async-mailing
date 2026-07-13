@@ -27,8 +27,7 @@ public class SubscriptionPdfGenerator {
   }
 
   private String buildHtml(String recipientLabel, String courseTitle, String message) {
-    return
-"""
+    return """
 <!DOCTYPE html>
 <html>
 <head>
